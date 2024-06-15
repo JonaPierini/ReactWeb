@@ -1,44 +1,44 @@
-import { render } from '@testing-library/react';
-import { FirstApp } from '../src/FirstApp';
+import { render } from "@testing-library/react";
+import { FirstApp } from "../src/FirstApp";
 
+describe("Pruebas en <FirstApp />", () => {
+  //RENDER =>  es una funcion que renderiza el componente
+  //SNAPSHOT => toMatchSnapshot() crea una carpeta de _snapshots_ que toma una foto del componente. Si por ejemplo sacamos el titulo, la prueba falla. Y si queremos actualizar el snapshot con la letra U
 
-describe('Pruebas en <FirstApp />', () => {
-    
-    // test('debe de hacer match con el snapshot', () => {
-        
-    //     const title = 'Hola, Soy Goku';
-    //     const { container } = render( <FirstApp title={ title } /> );
+  //TEST 1 => GENERA UN SNAPSHOT
+  // test('debe de hacer match con el snapshot', () => {
 
-    //     expect( container ).toMatchSnapshot();
+  //     const title = 'Hola, Soy Goku';
+  //     const { container } = render( <FirstApp title={ title } /> );
 
-    // });
+  //     expect( container ).toMatchSnapshot();
 
-    test('debe de mostrar el título en un h1', () => {
-        
-        const title = 'Hola, Soy Goku';
-        const { container, getByText, getByTestId } = render( <FirstApp title={ title } /> );
-        expect( getByText(title) ).toBeTruthy();
+  // });
 
-        // const h1 = container.querySelector('h1');
-        // expect(h1.innerHTML).toContain( title )
-        expect( getByTestId('test-title').innerHTML ).toContain(title)
+  //TEST 2 => insertamos un id al titulo y lo testeamos
+  test("debe de mostrar el título en un h1", () => {
+    const title = "Hola, Soy Goku";
+    //getByText => tomo el texto
+    //getByTestId => tomo el id
+    const { container, getByText, getByTestId } = render(
+      <FirstApp title={title} />
+    );
+    expect(getByText(title)).toBeTruthy();
 
-    });
+    // const h1 = container.querySelector('h1');
+    // expect(h1.innerHTML).toContain( title )
+    //TO-CONTAIN => que contenga
+    expect(getByTestId("test-title").innerHTML).toContain(title);
+  });
 
-    test('debe de mostrar el subtitulo enviado por props', () => {
-        
-        const title = 'Hola, Soy Goku';
-        const subTitle = 'Soy un subtitulo';
-        const { getAllByText } = render( 
-            <FirstApp 
-                title={ title }
-                subTitle={ subTitle }
-            /> 
-        );
+  //TEST 3 => evaluamos el subtitulo
+  test("debe de mostrar el subtitulo enviado por props", () => {
+    const title = "Hola, Soy Goku";
+    const subTitle = "Soy un subtitulo";
+    const { getAllByText } = render(
+      <FirstApp title={title} subTitle={subTitle} />
+    );
 
-        expect( getAllByText(subTitle).length ).toBe(2);
-
-    });
-
-
+    expect(getAllByText(subTitle).length).toBe(2);
+  });
 });
